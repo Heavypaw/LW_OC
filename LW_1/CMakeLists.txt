@@ -21,7 +21,8 @@ add_executable(parent ${SOURCE_FILES})
 add_executable(child ${SOURCE_FILES})
 
 enable_testing()
-add_executable(test_child test_child.cpp)
-target_link_libraries(test_child GTest::GTest GTest::Main)
+add_executable(${CMAKE_PROJECT_NAME}_tests tests_child.cpp parent.c utils.c)
+target_link_libraries(${CMAKE_PROJECT_NAME}_tests PRIVATE GTest::GTest)
+target_include_directories(${CMAKE_PROJECT_NAME}_tests PRIVATE include)
 
-add_test(NAME RunTests COMMAND test_child)
+add_test(NAME ${CMAKE_PROJECT_NAME}_tests COMMAND ${CMAKE_PROJECT_NAME}_tests)
